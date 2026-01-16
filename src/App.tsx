@@ -5,8 +5,7 @@ import { AdminPanel } from './components/AdminPanel';
 import { HistoryPage } from './components/HistoryPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
-// Basename cho GitHub Pages - thay 'lucky-draw' bằng tên repo của bạn
-const basename = import.meta.env.DEV ? '/' : '/lucky-draw';
+const basename = '/';
 
 function App() {
   return (
