@@ -1,15 +1,13 @@
-import { BrowserRouter, Routes, Route } from 'react-router-dom';
+import { HashRouter, Routes, Route } from 'react-router-dom';
 import { ParticipantRegistration } from './components/ParticipantRegistration';
 import { AdminLogin } from './components/AdminLogin';
 import { AdminPanel } from './components/AdminPanel';
 import { HistoryPage } from './components/HistoryPage';
 import { ProtectedRoute } from './components/ProtectedRoute';
 
-const basename = '/';
-
 function App() {
   return (
-    <BrowserRouter basename={basename}>
+    <HashRouter>
       <Routes>
         {/* Public routes */}
         <Route path="/" element={<ParticipantRegistration />} />
@@ -26,7 +24,7 @@ function App() {
           }
         />
       </Routes>
-    </BrowserRouter>
+    </HashRouter>
   );
 }
 
