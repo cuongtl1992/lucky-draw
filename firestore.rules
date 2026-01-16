@@ -1,0 +1,31 @@
+rules_version = '2';
+service cloud.firestore {
+  match /databases/{database}/documents {
+    // Participants: anyone can create and read, only admin can delete
+    match /participants/{participantId} {
+      // Allow reading for duplicate check during registration
+      allow read: if true;
+
+      // Allow creating new participant with required fields
+      allow create: if request.resource.data.keys().hasAll(['name', 'email', 'number', 'createdAt'])
+                    && request.resource.data.number is int
+                    && request.resource.data.name is string
+                    && request.resource.data.email is string;
+
+      // No updates, only admin can delete
+      allow update: if false;
+      allow delete: if request.auth != null;
+    }
+
+    // Winners: anyone can read, only authenticated users can write/delete
+    match /winners/{winnerId} {
+      allow read: if true;
+      allow write: if request.auth != null;
+    }
+
+    // Settings: only authenticated users
+    match /settings/{doc} {
+      allow read, write: if request.auth != null;
+    }
+  }
+}
